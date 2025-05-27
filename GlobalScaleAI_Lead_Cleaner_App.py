@@ -11,9 +11,55 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
-st.markdown("<style>body { background-color: #0e1117; color: white; }</style>", unsafe_allow_html=True)
-st.title("📈 GlobalScale.AI LeadCleaner")
-st.markdown("Upload your messy lead file (CSV, XLS, or XLSX). We'll clean it into a unified Contact + Opportunity format — ready to import into GlobalScale.AI CRM.")
+# Apple-style CSS
+st.markdown('''
+    <style>
+    html, body, .stApp {
+        background-color: #0e1117;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        color: #f5f5f7;
+    }
+    h1, h2, h3, h4, h5 {
+        font-weight: 600;
+        color: #ffffff;
+    }
+    .block-container {
+        padding: 3rem 2rem 3rem 2rem;
+    }
+    .stButton>button {
+        background-color: #1f1f1f;
+        color: white;
+        border-radius: 12px;
+        padding: 10px 24px;
+        font-weight: 600;
+        border: 1px solid #444;
+    }
+    .stButton>button:hover {
+        background-color: #333;
+        color: #eee;
+    }
+    .stFileUploader {
+        background-color: #181818;
+        border-radius: 16px;
+        padding: 1.2rem;
+        border: 1px solid #2a2a2a;
+    }
+    footer, header, #MainMenu, .viewerBadge_container__1QSob {
+        display: none;
+    }
+    iframe[title="streamlit"] + div { display: none !important; }
+    </style>
+''', unsafe_allow_html=True)
+
+st.markdown("""
+<div style='padding: 40px 60px; border-radius: 20px; text-align: left;'>
+    <h1 style='font-size: 3rem; margin-bottom: 0.4rem;'>GlobalScale.AI LeadCleaner</h1>
+    <p style='font-size: 1.25rem; color: #aaa; line-height: 1.8; max-width: 700px;'>
+        Upload your lead file. We'll clean and convert it into a beautifully structured Contact + Opportunity format —
+        ready for action inside <strong>GlobalScale.AI CRM</strong>.
+    </p>
+</div>
+""", unsafe_allow_html=True)
 
 uploaded_file = st.file_uploader("Upload your lead file", type=["csv", "xls", "xlsx"])
 
@@ -24,7 +70,7 @@ if uploaded_file:
         else:
             df = pd.read_excel(uploaded_file, sheet_name=0)
 
-        st.subheader("Raw Preview")
+        st.markdown("<h3 style='margin-top: 40px;'>📊 Raw Preview</h3>", unsafe_allow_html=True)
         st.dataframe(df.head())
 
         first_name = df.columns[df.columns.str.contains("first", case=False)].tolist()
@@ -62,7 +108,7 @@ if uploaded_file:
             for _ in range(len(clean_df))
         ]
 
-        st.subheader("✅ Cleaned & Merged Output")
+        st.markdown("<h3 style='margin-top: 40px; color:#8aff8a;'>✅ Cleaned & Merged Output</h3>", unsafe_allow_html=True)
         st.dataframe(clean_df.head())
 
         csv = clean_df.to_csv(index=False).encode("utf-8")
@@ -74,22 +120,3 @@ if uploaded_file:
         )
     except Exception as e:
         st.error(f"❌ An error occurred while processing your file: {e}")
-
-# Inject CSS to hide Streamlit branding
-st.markdown('''
-    <style>
-    #MainMenu, header, footer, .stDeployButton, .viewerBadge_container__1QSob {
-        visibility: hidden;
-        height: 0;
-    }
-    iframe[title="streamlit"] + div {display: none !important;}
-    .block-container {
-        padding-top: 1rem;
-        padding-bottom: 0rem;
-    }
-    .stApp {
-        background-color: #0e1117;
-        padding-bottom: 0px;
-    }
-    </style>
-''', unsafe_allow_html=True)
