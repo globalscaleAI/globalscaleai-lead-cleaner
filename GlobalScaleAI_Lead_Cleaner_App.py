@@ -3,10 +3,22 @@ import streamlit as st
 import pandas as pd
 import random
 from datetime import datetime, timedelta
+from PIL import Image
 
-st.set_page_config(page_title="GlobalScale AI Lead Cleaner", layout="wide")
+st.set_page_config(page_title="GlobalScale AI Lead Cleaner", page_icon="GlobalScaleAI Favicon.png", layout="wide")
 
+# --- Logo ---
+logo = Image.open("GlobalScaleAI_Logo_5000x5000.png")
+st.image(logo, width=200)
 st.title("📊 GlobalScale AI Lead Cleaner")
+
+# --- Password ---
+PASSWORD = "globalscaleleadcleaner"
+pw = st.text_input("🔐 Enter Access Password", type="password")
+if pw != PASSWORD:
+    st.warning("Access denied. Enter the correct password to continue.")
+    st.stop()
+
 st.markdown("Upload your messy lead file (CSV, XLS, or XLSX). We'll clean it into a unified Contact + Opportunity format — ready to import into GlobalScale.AI CRM.")
 
 uploaded_file = st.file_uploader("Upload your lead file", type=["csv", "xls", "xlsx"])
