@@ -16,11 +16,6 @@ st.markdown("<style>body { background-color: #0e1117; color: white; }</style>", 
 st.title("📊 GlobalScale AI Lead Cleaner")
 
 
-st.markdown("### 📩 Receive Results by Email (Coming Soon)")
-st.text_input("Your email address", placeholder="you@company.com", disabled=True)
-st.button("Send results via email", disabled=True)
-st.markdown("*Email delivery coming in next version.*")
-
 st.markdown("### 🔄 Upload & Processing")
 st.markdown("Upload your messy lead file (CSV, XLS, or XLSX). We'll clean it into a unified Contact + Opportunity format — ready to import into GlobalScale.AI CRM.")
 
