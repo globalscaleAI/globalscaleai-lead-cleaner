@@ -74,3 +74,22 @@ if uploaded_file:
         )
     except Exception as e:
         st.error(f"❌ An error occurred while processing your file: {e}")
+
+# Inject CSS to hide Streamlit branding
+st.markdown('''
+    <style>
+    #MainMenu, header, footer, .stDeployButton, .viewerBadge_container__1QSob {
+        visibility: hidden;
+        height: 0;
+    }
+    iframe[title="streamlit"] + div {display: none !important;}
+    .block-container {
+        padding-top: 1rem;
+        padding-bottom: 0rem;
+    }
+    .stApp {
+        background-color: #0e1117;
+        padding-bottom: 0px;
+    }
+    </style>
+''', unsafe_allow_html=True)
