@@ -14,7 +14,7 @@ st.set_page_config(
 st.markdown('''
     <style>
     html, body, .stApp {
-        background-color: #0e1117 !important;
+        background-color: #0b1a30 !important;
         font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
         color: #f5f5f7;
         margin: 0 !important;
@@ -40,7 +40,7 @@ st.markdown('''
         color: #eee;
     }
     .stFileUploader {
-        background-color: #181818;
+        background-color: #0b1a30;
         border-radius: 16px;
         padding: 1.2rem;
         border: 1px solid #2a2a2a;
