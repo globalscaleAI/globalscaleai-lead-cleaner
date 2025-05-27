@@ -29,7 +29,7 @@ uploaded_files = st.file_uploader("Upload one or more lead files", type=["csv", 
 
 for uploaded_file in uploaded_files:
     with st.spinner("Processing..."):
-    st.subheader(f"Processing: {uploaded_file.name}")
+        st.subheader(f"Processing: {uploaded_file.name}")
     if uploaded_file.name.endswith(".csv"):
         df = pd.read_csv(uploaded_file)
     else:
