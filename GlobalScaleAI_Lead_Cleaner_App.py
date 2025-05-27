@@ -11,13 +11,14 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
-# Apple-style CSS
 st.markdown('''
     <style>
     html, body, .stApp {
-        background-color: #0e1117;
+        background-color: #0e1117 !important;
         font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
         color: #f5f5f7;
+        margin: 0 !important;
+        padding: 0 !important;
     }
     h1, h2, h3, h4, h5 {
         font-weight: 600;
@@ -44,10 +45,13 @@ st.markdown('''
         padding: 1.2rem;
         border: 1px solid #2a2a2a;
     }
-    footer, header, #MainMenu, .viewerBadge_container__1QSob {
-        display: none;
+    footer, header, #MainMenu, .viewerBadge_container__1QSob,
+    .st-emotion-cache-z5fcl4, .st-emotion-cache-1avcm0n,
+    iframe[title="streamlit"] + div {
+        display: none !important;
+        height: 0 !important;
+        visibility: hidden !important;
     }
-    iframe[title="streamlit"] + div { display: none !important; }
     </style>
 ''', unsafe_allow_html=True)
 
