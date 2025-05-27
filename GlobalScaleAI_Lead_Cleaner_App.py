@@ -5,26 +5,30 @@ import random
 from datetime import datetime, timedelta
 from PIL import Image
 
-st.set_page_config(page_title="GlobalScale AI Lead Cleaner", page_icon="GlobalScaleAI Favicon trans.png", layout="wide")
+st.set_page_config(
+    initial_sidebar_state="collapsed",
+    page_title="GlobalScale AI Lead Cleaner", page_icon="GlobalScaleAI Favicon trans.png", layout="wide")
 
 # --- Logo ---
-logo = Image.open("GlobalScaleAI_Logo_5000x5000.png")
+logo = Image.open("GlobalScaleAI_Logo_5000x5000 Background Removed.png")
 st.image(logo, width=200)
+st.markdown("<style>body { background-color: #0e1117; color: white; }</style>", unsafe_allow_html=True)
 st.title("📊 GlobalScale AI Lead Cleaner")
 
-# --- Password ---
-PASSWORD = "globalscaleleadcleaner"
-pw = st.text_input("🔐 Enter Access Password", type="password")
-if pw != PASSWORD:
-    st.warning("Access denied. Enter the correct password to continue.")
-    st.stop()
 
+st.markdown("### 📩 Receive Results by Email (Coming Soon)")
+st.text_input("Your email address", placeholder="you@company.com", disabled=True)
+st.button("Send results via email", disabled=True)
+st.markdown("*Email delivery coming in next version.*")
+
+st.markdown("### 🔄 Upload & Processing")
 st.markdown("Upload your messy lead file (CSV, XLS, or XLSX). We'll clean it into a unified Contact + Opportunity format — ready to import into GlobalScale.AI CRM.")
 
 uploaded_files = st.file_uploader("Upload one or more lead files", type=["csv", "xls", "xlsx"], accept_multiple_files=True)
 
 
 for uploaded_file in uploaded_files:
+    with st.spinner("Processing..."):
     st.subheader(f"Processing: {uploaded_file.name}")
     if uploaded_file.name.endswith(".csv"):
         df = pd.read_csv(uploaded_file)
