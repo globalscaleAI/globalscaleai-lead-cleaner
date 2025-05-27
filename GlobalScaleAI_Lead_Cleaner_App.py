@@ -5,7 +5,7 @@ import random
 from datetime import datetime, timedelta
 from PIL import Image
 
-st.set_page_config(page_title="GlobalScale AI Lead Cleaner", page_icon="GlobalScaleAI Favicon.png", layout="wide")
+st.set_page_config(page_title="GlobalScale AI Lead Cleaner", page_icon="GlobalScaleAI Favicon trans.png", layout="wide")
 
 # --- Logo ---
 logo = Image.open("GlobalScaleAI_Logo_5000x5000.png")
@@ -21,15 +21,17 @@ if pw != PASSWORD:
 
 st.markdown("Upload your messy lead file (CSV, XLS, or XLSX). We'll clean it into a unified Contact + Opportunity format — ready to import into GlobalScale.AI CRM.")
 
-uploaded_file = st.file_uploader("Upload your lead file", type=["csv", "xls", "xlsx"])
+uploaded_files = st.file_uploader("Upload one or more lead files", type=["csv", "xls", "xlsx"], accept_multiple_files=True)
 
-if uploaded_file:
+
+for uploaded_file in uploaded_files:
+    st.subheader(f"Processing: {uploaded_file.name}")
     if uploaded_file.name.endswith(".csv"):
         df = pd.read_csv(uploaded_file)
     else:
         df = pd.read_excel(uploaded_file, sheet_name=0)
 
-    st.subheader("Raw Preview")
+    st.markdown("**Raw Preview**")
     st.dataframe(df.head())
 
     # Try to detect first/last name or fallback
@@ -68,13 +70,14 @@ if uploaded_file:
         for _ in range(len(clean_df))
     ]
 
-    st.subheader("✅ Cleaned & Merged Output")
+    st.subheader("✅ Cleaned Output")
     st.dataframe(clean_df.head())
 
     csv = clean_df.to_csv(index=False).encode("utf-8")
     st.download_button(
-        label="📥 Download Cleaned CSV",
+        label=f"📥 Download {uploaded_file.name.split('.')[0]}_Cleaned.csv",
         data=csv,
-        file_name="GlobalScaleAI_Lead_Cleaned.csv",
+        file_name=f"{uploaded_file.name.split('.')[0]}_Cleaned.csv",
         mime="text/csv",
     )
+
